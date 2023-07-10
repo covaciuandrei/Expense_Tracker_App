@@ -31,10 +31,16 @@ class _ExpensesState extends State<Expenses> {
 
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
-      isScrollControlled: true,
-      context: context,
-      builder: (ctx) => NewExpense(onAddExpense: _addExpense),
-    );
+        useSafeArea: true,
+        isScrollControlled: true,
+        context: context,
+        constraints: const BoxConstraints(maxWidth: double.infinity),
+        builder: (ctx) =>
+            // Container(
+            // height: double.infinity,
+            // child:
+            NewExpense(onAddExpense: _addExpense));
+    // );
   }
 
   void _addExpense(Expense expense) {
@@ -68,6 +74,8 @@ class _ExpensesState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+
     Widget mainContent = const Center(
       child: Text('No expenses found. Start adding some!'),
     );
@@ -89,15 +97,24 @@ class _ExpensesState extends State<Expenses> {
           ),
         ], //lista de widgets sa adaugam butoane de obicei
       ),
-      body: Column(
-        children: [
-          //toolbar cu addbar si row daca e nevoie, dar il punem cu scaffold proprieties
-          Chart(expenses: _registeredExpenses),
-          Expanded(
-            child: mainContent,
-          )
-        ],
-      ),
+      body: width < 600
+          ? Column(
+              children: [
+                //toolbar cu addbar si row daca e nevoie, dar il punem cu scaffold proprieties
+                Chart(expenses: _registeredExpenses),
+                Expanded(
+                  child: mainContent,
+                )
+              ],
+            )
+          : Row(
+              children: [
+                Expanded(child: Chart(expenses: _registeredExpenses)),
+                Expanded(
+                  child: mainContent,
+                )
+              ],
+            ),
     );
   }
 }

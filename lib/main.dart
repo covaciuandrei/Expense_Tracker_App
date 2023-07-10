@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:expense_tracker/widgets/expenses.dart';
+// import 'package:flutter/services.dart';
 
 var kColorScheme =
     ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 96, 59, 181));
@@ -9,6 +10,11 @@ var kDarkColorScheme = ColorScheme.fromSeed(
     seedColor: const Color.fromARGB(255, 5, 99, 125));
 
 void main() {
+  // WidgetsFlutterBinding.ensureInitialized();
+  // //make sure the locking orientation and running the app works as intended
+  // SystemChrome.setPreferredOrientations([
+  //   DeviceOrientation.portraitUp,
+  // ]).then((fct) {
   runApp(
     MaterialApp(
         darkTheme: ThemeData.dark().copyWith(
@@ -53,6 +59,7 @@ void main() {
         themeMode: ThemeMode.system,
         home: const Expenses()),
   );
+  // });
 }
 //ThemeData() faci un obiect, el ia culorile default ale flutter si cu copywith
 //modifici doar ceva setari de culori pe care le vrei tu
